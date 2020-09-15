@@ -16,7 +16,8 @@ export default async function getWeather({
 	if (!process.env.REACT_APP_OW_API_KEY) {
 		return {
 			code: 400,
-			message: 'Missing required item from config OW_API_KEY'
+			message: 'Missing required item from config OW_API_KEY',
+			isError: true
 		};
 	}
 
@@ -29,13 +30,15 @@ export default async function getWeather({
 		} else {
 			return {
 				code: response.status,
-				message: response.statusText
+				message: response.statusText,
+				isError: true
 			};
 		}
 	} catch (e) {
 		return {
 			code: 500,
-			message: e.message
+			message: e.message,
+			isError: true
 		};
 	}
 }

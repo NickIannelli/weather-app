@@ -27,16 +27,15 @@ export const fetchWeather = (city: string, state: string) => async (dispatch: Fu
 	const { weather } = getState();
 	const term = serializeTerm({ city, state });
 
+	dispatch(fetchRequest(city, state));
+
 	// No need to re-fetch data that's fresh enough
 	if (weather.byTerm[term]?.timeFetched > +new Date() - 5e3 * 60) return;
 
-	dispatch(fetchRequest(city, state));
-
-	try {
-		const result = await getWeather({ city, state });
-
+	const result = await getWeather({ city, state });
+	if (!(result as ErrorResponse).isError) {
 		dispatch(fetchSuccess(city, state, result));
-	} catch (e) {
-		dispatch(fetchFailure(city, state, e));
+	} else {
+		dispatch(fetchFailure(city, state, (result as ErrorResponse).message));
 	}
 };

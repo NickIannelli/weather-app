@@ -16,6 +16,7 @@ export type ReduxPageConfig = Omit<PageConfig, 'component'> & {
 export type ErrorResponse = {
 	code: number;
 	message: string;
+	isError: boolean;
 };
 
 export type WeatherResponseItem = {
