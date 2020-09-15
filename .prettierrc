@@ -1,0 +1,23 @@
+{
+  "//": "These are just personal preferences... Happy to work with anything. :)",
+  "singleQuote": true,
+  "printWidth": 120,
+  "useTabs": true,
+  "endOfLine": "lf",
+  "trailingComma": "none",
+  "arrowParens": "avoid",
+  "overrides": [
+    {
+      "files": "**/locale/*.js",
+      "options": {
+        "printWidth": 9999
+      }
+    },
+    {
+      "files": ["**/*.json", ".prettierrc"],
+      "options": {
+        "useTabs": false
+      }
+    }
+  ]
+}
