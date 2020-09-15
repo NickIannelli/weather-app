@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage/session';
 import thunk from 'redux-thunk';
 import history from '../helpers/history';
 import page from './page';
+import weather from './weather';
 
 const persistConfig = {
 	key: 'root',
@@ -15,7 +16,8 @@ const persistConfig = {
 export const generateStore = () => {
 	const rootReducer = combineReducers({
 		router: connectRouter(history),
-		page
+		page,
+		weather
 	});
 
 	let composeEnhancers = compose;
