@@ -16,6 +16,7 @@ export default handleActions(
 	{
 		[fetchRequest.toString()]: (state, { payload }: Action<RequestAction>) => ({
 			...state,
+			previousTerm: state.activeSearch,
 			activeSearch: serializeTerm(payload)
 		}),
 
@@ -37,6 +38,7 @@ export default handleActions(
 	},
 	{
 		activeSearch: '',
+		previousTerm: '',
 		byTerm: {},
 		terms: []
 	} as WeatherState
