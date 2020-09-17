@@ -4,7 +4,8 @@ import { ReduxPageConfig } from '../types';
 
 const useStyles = createUseStyles({
 	header: {
-		backgroundColor: 'red'
+		backgroundColor: '',
+		color: 'transparent'
 	}
 });
 

@@ -1,10 +1,17 @@
 import { push } from 'connected-react-router';
+import { noop } from 'lodash';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DynamicWeatherBackground from '../../components/DynamicWeatherBackground';
 import WeatherInfo from '../../components/WeatherInfo';
 import useForm from '../../hooks/useForm';
 import { actions, selectors } from '../../store/weather';
+
+const fakeEvent = (values: any): React.ChangeEvent<HTMLInputElement> => ({
+	...values,
+	addEventListener: noop,
+	dispatchEvent: noop
+});
 
 export default function WeatherPage({
 	computedMatch: {
@@ -28,13 +35,18 @@ export default function WeatherPage({
 	//     what the URL & data on page is in sync.
 	React.useEffect(() => {
 		if (!city || !state) {
-			dispatch(push('/'));
+			return;
 		}
 		dispatch(actions.fetchWeather(city, state));
+		fields.city.onChange(fakeEvent({ target: { value: city } }));
+		fields.state.onChange(fakeEvent({ target: { value: state } }));
+
+		// By including the city/state fields it essentially prevents updating the field
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [city, state, dispatch]);
 
 	return (
-		<main>
+		<>
 			<form
 				action="#"
 				onSubmit={handleSubmit(values => {
@@ -44,12 +56,12 @@ export default function WeatherPage({
 					dispatch(push(`/weather/${values.city}|${values.state}`));
 				})}
 			>
-				<input type="text" style={{ fontSize: '16px' }} {...fields.city} />
-				<input type="text" style={{ fontSize: '16px', width: '50px' }} {...fields.state} />
+				<input type="text" style={{ marginLeft: '40px' }} {...fields.city} />
+				<input type="text" style={{ width: '50px' }} {...fields.state} />
 				<button type="submit">Go</button>
 			</form>
 			<WeatherInfo {...details} />
 			<DynamicWeatherBackground {...details} />
-		</main>
+		</>
 	);
 }
