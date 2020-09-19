@@ -1,11 +1,12 @@
 import { Action, handleActions } from 'redux-actions';
 import { WeatherResponseItem } from '../../types';
-import { fetchRequest, fetchSuccess } from './actions';
+import { fetchFailure, fetchRequest, fetchSuccess } from './actions';
 import { serializeTerm } from './helpers';
 import { RequestAction, SuccessAction } from './types';
 
 type WeatherState = {
 	activeSearch: string;
+	previousTerm: string;
 	byTerm: {
 		[term: string]: WeatherResponseItem & { timeFetched: number };
 	};
@@ -33,6 +34,13 @@ export default handleActions(
 				...state,
 				byTerm,
 				terms: Object.keys(byTerm)
+			};
+		},
+
+		[fetchFailure.toString()]: state => {
+			return {
+				...state,
+				activeSearch: state.previousTerm
 			};
 		}
 	},

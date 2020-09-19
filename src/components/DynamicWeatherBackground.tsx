@@ -6,9 +6,8 @@ import usePeriodicReload from '../hooks/usePeriodicReload';
 import useWindowSize from '../hooks/useWindowSize';
 import { WeatherTheme } from '../theme';
 import { WeatherResponseItem } from '../types';
-import Cloud from './Cloud';
-
-const directions: ('left' | 'right' | 'top' | 'bottom')[] = ['left', 'right', 'top', 'bottom'];
+import Clouds from './Clouds';
+import Rain from './Rain';
 
 const baseBackground = {
 	transition: 'all 1.5s ease-in-out',
@@ -36,24 +35,24 @@ const useStyles = createUseStyles((theme: WeatherTheme) => ({
 	}
 }));
 
-const getIsCloudy = (props: WeatherResponseItem) =>
-	props.weather.some(item => item.main.toLowerCase().includes('cloud'));
+/**
+ * id codes from https://websygen.github.io/owfont/#
+ *   2xx = thunderstorms
+ *   3xx = drizzle
+ *   4xx = - unused -
+ *   5xx = rainy
+ *   6xx = snow
+ *   7xx = atomspheric issues
+ *   800 = normal
+ *   80x = cloudy
+ * */
+const getIsRainy = (props: WeatherResponseItem) => props.weather.some(item => item.id > 200 && item.id < 600);
 
-const getCloudArray = memoize(
-	(width: number, height: number) => {
-		return Array.from({ length: Math.floor(Math.sqrt(width * height) / 70) }, (_, i) => {
-			const xDiff = 140 * i + (i % 3) * 20 + (i % 5) * 30;
-			const x = (xDiff % width) - 40;
-			const y = Math.floor(xDiff / width) * 90 + 120 + (i % 2) * 20 + (i % 3) * -30;
-			return { x, y, index: i };
-		});
-	},
-	(width, height) => `${width}|${height}`
-);
+const getIsCloudy = (props: WeatherResponseItem) =>
+	getIsRainy(props) || props.weather.some(item => item.id >= 801 && item.id <= 804);
 
 export default function DynamicWeatherBackground(props: WeatherResponseItem) {
 	const classes = useStyles();
-	const { width, height } = useWindowSize();
 	const [now, setNow] = React.useState(Date.now());
 
 	usePeriodicReload(
@@ -67,20 +66,13 @@ export default function DynamicWeatherBackground(props: WeatherResponseItem) {
 	if (!props.base) return <div className={classes.backgroundDay} />; // no Dynamic background without anything to display...
 
 	const isCloudy = getIsCloudy(props);
+	const isRainy = getIsRainy(props);
 
 	return (
 		<div className={classes.backgroundDay}>
 			<div className={classes.backgroundNight} style={{ opacity: getTintOpacity(props, now) * 0.9 }} />
-			{getCloudArray(width, height).map(({ x, y, index }) => (
-				<Cloud
-					delay={index * 150}
-					key={`${x}|${y}`}
-					x={x}
-					y={y}
-					inDirection={directions[index % directions.length]}
-					displayed={isCloudy}
-				/>
-			))}
+			{isCloudy && <Clouds />}
+			{isRainy && <Rain />}
 		</div>
 	);
 }

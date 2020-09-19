@@ -8,6 +8,12 @@ import history from './helpers/history';
 import store from './store';
 import theme from './theme';
 
+/**
+ * Resources:
+ * - Sun icon courtesy of https://www.flaticon.com/authors/dinosoftlabs
+ * - Cloud image courtesy of https://pngriver.com/download-cloud-png-5-83292/
+ * - Rain image courtesy of http://pngimg.com/download/13467
+ */
 export default function App() {
 	return (
 		<Provider store={store.store}>

@@ -1,26 +1,29 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import DynamicWeatherBackground from '../../components/DynamicWeatherBackground';
 import LocationSearchForm from '../../components/LocationSearchForm';
 import { WeatherTheme } from '../../theme';
 
-const baseBackground = {
-	transition: 'all 1.5s ease-in-out',
-	position: 'fixed',
-	top: 0,
-	left: 0,
-	right: 0,
-	bottom: 0
-};
-
 const useStyles = createUseStyles((theme: WeatherTheme) => ({
 	backgroundDay: {
-		...baseBackground,
+		display: 'flex',
+		flexDirection: 'column',
+		position: 'fixed',
+		top: '0',
+		left: '0',
+		right: '0',
+		bottom: '0',
+		justifyContent: 'center',
 		backgroundColor: theme.color.dayBlue
 	},
-	backgroundNight: {
-		...baseBackground,
-		backgroundColor: theme.color.nightBlue
+	content: {
+		textAlign: 'center',
+		margin: '-20vh auto 0',
+		width: 'calc(100% - 40px)'
+	},
+	logoImage: {
+		filter: 'drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.5))',
+		width: '80px',
+		height: '80px'
 	}
 }));
 
@@ -29,8 +32,11 @@ export default function HomePage() {
 
 	return (
 		<div className={classes.backgroundDay}>
-			<h1>Weather Finder</h1>
-			<LocationSearchForm initialValues={{}} />
+			<div className={classes.content}>
+				<img src="/images/sun.svg" className={classes.logoImage} alt="" />
+				<h1>Weather Finder</h1>
+				<LocationSearchForm />
+			</div>
 		</div>
 	);
 }

@@ -7,7 +7,8 @@ export type WeatherTheme = {
 	};
 	spacing: {
 		unit: number;
-		get: (...units: number[]) => string;
+		contentWidth: string;
+		get: (...units: (number | 'auto')[]) => string;
 	};
 	effects: {
 		[effectName in Effects]: object;
@@ -35,8 +36,9 @@ const theme: WeatherTheme = {
 	},
 	spacing: {
 		unit: 5,
-		get(...units: number[]) {
-			return units.map(unit => `${5 * unit}px`).join(' ');
+		contentWidth: '960px',
+		get(...units: (number | 'auto')[]) {
+			return units.map(unit => (unit === 'auto' ? 'auto' : `${5 * unit}px`)).join(' ');
 		}
 	},
 	curvature: {
@@ -65,6 +67,7 @@ const theme: WeatherTheme = {
 
 			return {
 				boxShadow: `${insetShadow}, ${borderShadow}, ${dropShadow}`,
+				backdropFilter: 'blur(8px)',
 
 				'&::before': {
 					content: '""',

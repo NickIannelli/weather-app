@@ -22,8 +22,10 @@ export default async function getWeather({
 	}
 
 	try {
+		const queryString = [city, state.replace('-', ''), 'AU'].filter(Boolean).join(',');
+
 		const response = await Axios.get(
-			`${WeatherApiUrl}?q=${city},${state},AU&units=${units}&appid=${process.env.REACT_APP_OW_API_KEY}`
+			`${WeatherApiUrl}?q=${queryString}&units=${units}&appid=${process.env.REACT_APP_OW_API_KEY}`
 		);
 		if (response.status === 200) {
 			return response.data as WeatherResponseItem;

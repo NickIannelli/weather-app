@@ -6,10 +6,10 @@ import { isTouchDevice } from '../helpers/device';
 import { createUseStyles } from 'react-jss';
 import { WeatherTheme } from '../theme';
 
-const states = ['- ANY -', 'NSW', 'NT', 'QLD', 'SA', 'TAS', 'VIC', 'WA'];
+const states = ['-', 'NSW', 'NT', 'QLD', 'SA', 'TAS', 'VIC', 'WA'];
 
 type Props = {
-	initialValues: {
+	initialValues?: {
 		[key: string]: string;
 	};
 };
@@ -42,7 +42,7 @@ const useStyles = createUseStyles<WeatherTheme>(theme => ({
 }));
 
 export default forwardRef<LocationImperativeHandle, Props>(function LocationSearchForm(
-	{ initialValues = { city: '', state: '' } },
+	{ initialValues = { city: '', state: '-' } },
 	ref
 ) {
 	const dispatch = useDispatch();

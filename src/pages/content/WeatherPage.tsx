@@ -44,7 +44,7 @@ export default function WeatherPage({
 	return (
 		<>
 			<LocationSearchForm ref={searchForm} initialValues={{ city, state }} />
-			<WeatherInfo {...details} />
+			<WeatherInfo {...details} isPinned />
 			<DynamicWeatherBackground {...details} />
 		</>
 	);
