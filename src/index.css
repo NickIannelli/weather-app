@@ -1,3 +1,5 @@
+@import-normalize; /* bring in normalize.css styles */
+
 body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
@@ -22,11 +24,27 @@ main {
 }
 
 input,
-button {
+button,
+select {
 	font-size: 16px;
-	background: rgba(255, 255, 255, 0.9);
+	background: rgba(255, 255, 255, 0.2);
 	padding: 10px;
 	margin: 5px;
 	border: 1px solid #eee;
 	border-radius: 5px;
+	backdrop-filter: blur(4px);
+}
+
+input:active,
+select:active,
+input:focus,
+select:focus,
+button {
+	background: rgba(255, 255, 255, 0.5);
+	outline: none;
+}
+
+button:active,
+button:focus {
+	background: rgba(255, 255, 255, 0.8);
 }

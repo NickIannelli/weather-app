@@ -24,6 +24,7 @@ const useStyles = createUseStyles({
 		filter: 'blur(10px)',
 		opacity: 0.8,
 		transition: 'all 1.4s ease-out',
+		backfaceVisibility: 'hidden',
 
 		'&:before': {
 			content: '""',
@@ -42,13 +43,13 @@ const useStyles = createUseStyles({
 const getTransform = (inDirection?: InDirectionEnum) => {
 	switch (inDirection) {
 		case 'left':
-			return 'translateX(-50px)';
+			return 'translate3d(-50px, 0, 0)';
 		case 'right':
-			return 'translateX(50px)';
+			return 'translate3d(50px, 0, 0)';
 		case 'top':
-			return 'translateY(-50px)';
+			return 'translate3d(0, -50px, 0)';
 		case 'bottom':
-			return 'translateY(50px)';
+			return 'translate3d(0, 50px, 0)';
 		default:
 			return '';
 	}

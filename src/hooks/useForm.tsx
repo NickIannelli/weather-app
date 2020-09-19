@@ -1,3 +1,4 @@
+import { noop } from 'lodash';
 import React from 'react';
 
 type SubmitHandler = (params: { [fieldName: string]: string }) => void;
@@ -5,7 +6,7 @@ type SubmitHandler = (params: { [fieldName: string]: string }) => void;
 type FormShape = {
 	fields: {
 		[fieldName: string]: {
-			onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+			onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 			value: string;
 		};
 	};
@@ -32,11 +33,20 @@ export default function useForm({ initialValues, fields }: Config): FormShape {
 		fields: fields
 			.map(field => ({
 				[field]: {
-					onChange: (e: React.ChangeEvent<HTMLInputElement>) => setFieldValue(field, e.target.value),
+					onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+						setFieldValue(field, e.target.value),
 					value: fieldValues[field]
 				}
 			}))
 			.reduce((prev, curr) => ({ ...prev, ...curr }), {}),
 		handleSubmit
+	};
+}
+
+export function fakeEvent(values: any): React.ChangeEvent<HTMLInputElement> {
+	return {
+		...values,
+		addEventListener: noop,
+		dispatchEvent: noop
 	};
 }
