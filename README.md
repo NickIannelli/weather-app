@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## [https://nickiannelli.github.io/weather-app/](GitHub Pages Deployment)
+
 ## Setup
 
 To set up the application, the OpenWeather API Key needs to be created.
