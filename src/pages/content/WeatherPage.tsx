@@ -72,9 +72,11 @@ export default function WeatherPage({
 			<div className={classes.content}>
 				<WeatherInfo weather={details} location={{ city, state }} isActive />
 				<DynamicWeatherBackground {...details} />
-				{pinnedLocations.map(location => (
-					<PinnedWeatherInfo key={`${location.city}|${location.state}`} location={location} />
-				))}
+				{pinnedLocations
+					.filter(location => location.city !== city && location.state !== state)
+					.map(location => (
+						<PinnedWeatherInfo key={`${location.city}|${location.state}`} location={location} />
+					))}
 			</div>
 		</>
 	);

@@ -6,7 +6,7 @@ import { isTouchDevice } from '../helpers/device';
 import { createUseStyles } from 'react-jss';
 import { WeatherTheme } from '../theme';
 
-const states = ['-', 'NSW', 'NT', 'QLD', 'SA', 'TAS', 'VIC', 'WA'];
+const states = ['-', 'ACT', 'NSW', 'NT', 'QLD', 'SA', 'TAS', 'VIC', 'WA'];
 
 type Props = {
 	initialValues?: {

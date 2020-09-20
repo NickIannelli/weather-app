@@ -26,6 +26,10 @@ const useStyles = createUseStyles<WeatherTheme>(theme => ({
 
 		'& > *': {
 			opacity: ({ isActive }) => (isActive ? 1 : 0.5)
+		},
+
+		'&:active, &:focus': {
+			outline: 'none'
 		}
 	},
 	container: {
