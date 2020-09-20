@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { createUseStyles } from 'react-jss';
 import { Transition } from 'react-transition-group';
 import { getTintOpacity } from '../helpers/weather';
@@ -20,7 +20,8 @@ const baseBackground = {
 	pointerEvents: 'none',
 
 	'& *': {
-		pointerEvents: 'none'
+		pointerEvents: 'none',
+		userSelect: 'none'
 	}
 };
 
@@ -36,7 +37,7 @@ const useStyles = createUseStyles((theme: WeatherTheme) => ({
 }));
 
 const fadeInTransition: {
-	[state: string]: object;
+	[state: string]: CSSProperties;
 } = {
 	entering: { opacity: 1 },
 	entered: { opacity: 1 },

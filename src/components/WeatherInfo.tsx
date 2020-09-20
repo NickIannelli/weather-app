@@ -4,11 +4,10 @@ import { getTintOpacity } from '../helpers/weather';
 import { toSentenceCase } from '../helpers/string';
 import usePeriodicReload from '../hooks/usePeriodicReload';
 import { WeatherTheme } from '../theme';
-import { LocationSearch, WeatherResponseItem } from '../types';
-import { pinLocation, unpinLocation } from '../store/user/actions';
+import { LocationSearch, ReduxStore, WeatherResponseItem } from '../types';
 import { useDispatch, useSelector } from 'react-redux';
 import Star from './Star';
-import { isLocationPinned } from '../store/user/selectors';
+import { selectors as userSelectors, actions as userActions } from '../store/user';
 import { notButton } from '../style/utilities';
 import { getActiveWeather } from '../store/weather/selectors';
 
@@ -94,7 +93,7 @@ export default function WeatherInfo(props: Props) {
 	const [now, setNow] = React.useState(Date.now());
 	const displayUnit = (value: number) => `${Math.round(value)}${unit}`;
 	const dispatch = useDispatch();
-	const isPinned = useSelector(state => isLocationPinned(location, state));
+	const isPinned = useSelector((state: ReduxStore) => userSelectors.isLocationPinned(location, state));
 	const activeWeather = useSelector(getActiveWeather);
 
 	usePeriodicReload(
@@ -113,7 +112,7 @@ export default function WeatherInfo(props: Props) {
 	const { weather, name, main } = weatherProp;
 
 	return (
-		<div className={[classes.outerContainer, element.className].filter(Boolean).join(' ')} {...element}>
+		<div {...element} className={[classes.outerContainer, element.className].filter(Boolean).join(' ')}>
 			<div className={classes.container}>
 				<img className={classes.icon} src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`} alt="" />
 				<div className={classes.content}>
@@ -130,9 +129,9 @@ export default function WeatherInfo(props: Props) {
 					<button
 						onClick={() => {
 							if (isPinned) {
-								dispatch(unpinLocation(location.city, location.state));
+								dispatch(userActions.unpinLocation(location.city, location.state));
 							} else {
-								dispatch(pinLocation(location.city, location.state));
+								dispatch(userActions.pinLocation(location.city, location.state));
 							}
 						}}
 						type="button"

@@ -1,5 +1,14 @@
+import { WeatherState } from './store/weather/reducer';
+import { UserState } from './store/user/reducer';
+
 // To implement in the future
-export type ReduxStore = any;
+export type ReduxStore = {
+	weather: WeatherState;
+	page: {
+		[path: string]: ReduxPageConfig;
+	};
+	user: UserState;
+};
 
 export type PageConfig = {
 	exact: boolean;

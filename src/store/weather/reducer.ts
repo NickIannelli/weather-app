@@ -4,7 +4,7 @@ import { fetchFailure, fetchRequest, fetchSuccess } from './actions';
 import { serializeTerm } from './helpers';
 import { RequestAction, SuccessAction } from './types';
 
-type WeatherState = {
+export type WeatherState = {
 	activeSearch: string;
 	previousTerm: string;
 	byTerm: {

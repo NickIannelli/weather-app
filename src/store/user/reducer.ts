@@ -1,12 +1,10 @@
 import { Action, handleActions } from 'redux-actions';
+import { LocationSearch } from '../../types';
 import { pinLocation, unpinLocation } from './actions';
 import { PinAction } from './types';
 
-type UserState = {
-	pinnedLocations: {
-		city: string;
-		state: string;
-	}[];
+export type UserState = {
+	pinnedLocations: LocationSearch[];
 };
 
 export default handleActions(

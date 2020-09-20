@@ -5,14 +5,14 @@ import WeatherInfo from '../components/WeatherInfo';
 import usePeriodicReload from '../hooks/usePeriodicReload';
 import { actions, selectors } from '../store/weather';
 import { serializeTerm } from '../store/weather/helpers';
-import { LocationSearch } from '../types';
+import { LocationSearch, ReduxStore } from '../types';
 
 type Props = {
 	location: LocationSearch;
 };
 
 export default function PinnedWeatherInfo({ location }: Props) {
-	const details = useSelector(state => selectors.getWeatherForTerm(serializeTerm(location), state));
+	const details = useSelector((state: ReduxStore) => selectors.getWeatherForTerm(serializeTerm(location), state));
 	const dispatch = useDispatch();
 
 	usePeriodicReload(

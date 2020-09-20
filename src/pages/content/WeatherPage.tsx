@@ -16,13 +16,13 @@ const useStyles = createUseStyles((theme: WeatherTheme) => ({
 		top: 0,
 		left: 0,
 		right: 0,
-		padding: '5px',
+		padding: theme.spacing.get(1),
 		zIndex: 1,
 		backdropFilter: 'blur(8px)',
 		boxShadow: '0 4px 4px -1px rgba(0, 0, 0, 0.3)'
 	},
 	content: {
-		marginTop: '80px',
+		marginTop: '80px', // refers to the overall height of the search form
 		paddingBottom: '80px'
 	}
 }));
@@ -72,8 +72,7 @@ export default function WeatherPage({
 			<div className={classes.content}>
 				<WeatherInfo weather={details} location={{ city, state }} isActive />
 				<DynamicWeatherBackground {...details} />
-				{/* @TODO: Fix location: any */}
-				{pinnedLocations.map((location: any) => (
+				{pinnedLocations.map(location => (
 					<PinnedWeatherInfo key={`${location.city}|${location.state}`} location={location} />
 				))}
 			</div>
