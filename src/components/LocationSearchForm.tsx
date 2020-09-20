@@ -80,15 +80,21 @@ export default forwardRef<LocationImperativeHandle, Props>(function LocationSear
 
 	return (
 		<form action="#" onSubmit={handleSubmit(onSubmit)} className={classes.container}>
-			<input placeholder="City/Suburb" className={classes.citySearch} type="text" {...fields.city} />
-			<select className={classes.stateDropdown} {...fields.state}>
+			<input
+				placeholder="City/Suburb"
+				aria-label="Enter a city or suburb to search"
+				className={classes.citySearch}
+				type="text"
+				{...fields.city}
+			/>
+			<select className={classes.stateDropdown} {...fields.state} aria-label="Select a state">
 				{states.map(state => (
 					<option value={state} key={state}>
 						{state}
 					</option>
 				))}
 			</select>
-			<button className={classes.searchButton} type="submit">
+			<button className={classes.searchButton} type="submit" aria-label="Search">
 				Go
 			</button>
 		</form>

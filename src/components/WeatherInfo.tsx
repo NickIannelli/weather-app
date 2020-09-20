@@ -1,4 +1,5 @@
 import React from 'react';
+import { LiveMessage } from 'react-aria-live';
 import { createUseStyles } from 'react-jss';
 import { getTintOpacity } from '../helpers/weather';
 import { toSentenceCase } from '../helpers/string';
@@ -87,11 +88,20 @@ const useStyles = createUseStyles<WeatherTheme>(theme => ({
 }));
 
 const unit = '°';
+const displayUnit = (value: number) => `${Math.round(value)}${unit}`;
 
+const getAriaMessage = ({ location: { city }, weather: { main, weather } }: Props) => {
+	const temp = displayUnit(main.temp);
+	const tempMax = displayUnit(main.temp_max);
+	const tempMin = displayUnit(main.temp_min);
+	const tempFeels = displayUnit(main.feels_like);
+	return `The weather in ${city} is currently ${temp} with ${weather[0].description}.
+	${tempFeels !== temp ? `It feels like ${tempFeels}.` : ''}
+	${tempMin !== tempMax ? `It is a top of ${tempMax} and a low of ${tempMin}` : ''}`;
+};
 export default function WeatherInfo(props: Props) {
 	const { location, isActive, weather: weatherProp, ...element } = props;
 	const [now, setNow] = React.useState(Date.now());
-	const displayUnit = (value: number) => `${Math.round(value)}${unit}`;
 	const dispatch = useDispatch();
 	const isPinned = useSelector((state: ReduxStore) => userSelectors.isLocationPinned(location, state));
 	const activeWeather = useSelector(getActiveWeather);
@@ -112,7 +122,13 @@ export default function WeatherInfo(props: Props) {
 	const { weather, name, main } = weatherProp;
 
 	return (
-		<div {...element} className={[classes.outerContainer, element.className].filter(Boolean).join(' ')}>
+		<div
+			{...element}
+			className={[classes.outerContainer, element.className].filter(Boolean).join(' ')}
+			tabIndex={0}
+			aria-label={getAriaMessage(props)}
+		>
+			<LiveMessage message={getAriaMessage(props)} aria-live={isActive ? 'assertive' : 'polite'} />
 			<div className={classes.container}>
 				<img className={classes.icon} src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`} alt="" />
 				<div className={classes.content}>
@@ -136,6 +152,7 @@ export default function WeatherInfo(props: Props) {
 						}}
 						type="button"
 						className={classes.notButton}
+						aria-label={isPinned ? `Unpin ${location.city} location` : `Pin ${location.city} for quick access`}
 					>
 						<Star isFilled={isPinned} size={2} />
 					</button>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { LiveAnnouncer } from 'react-aria-live';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -21,7 +22,9 @@ export default function App() {
 			<PersistGate loading={null} persistor={store.persistor}>
 				<ConnectedRouter history={history}>
 					<ThemeProvider theme={theme}>
-						<Router />
+						<LiveAnnouncer>
+							<Router />
+						</LiveAnnouncer>
 					</ThemeProvider>
 				</ConnectedRouter>
 			</PersistGate>
