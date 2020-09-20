@@ -7,20 +7,11 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: #78acff;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-* {
-	/* Prevent flicker on iOS Safari for rain animation  */
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
 }
 
 body,
@@ -28,11 +19,10 @@ html,
 #root,
 main {
 	position: relative;
-	height: 100%;
 }
 
 input,
-button,
+button[type='submit'],
 select {
 	transition: background 0.2s ease;
 	font-size: 16px;
@@ -53,16 +43,16 @@ input:active,
 select:active,
 input:focus,
 select:focus,
-button {
+button[type='submit'] {
 	background: rgba(255, 255, 255, 0.5);
 	outline: none;
 }
 
-button:hover {
+button[type='submit']:hover {
 	background: rgba(255, 255, 255, 0.65);
 }
 
-button:active,
-button:focus {
+button[type='submit']:active,
+button[type='submit']:focus {
 	background: rgba(255, 255, 255, 0.8);
 }

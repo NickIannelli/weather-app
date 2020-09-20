@@ -1,13 +1,13 @@
-import { memoize } from 'lodash';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
+import { Transition } from 'react-transition-group';
 import { getTintOpacity } from '../helpers/weather';
 import usePeriodicReload from '../hooks/usePeriodicReload';
-import useWindowSize from '../hooks/useWindowSize';
 import { WeatherTheme } from '../theme';
 import { WeatherResponseItem } from '../types';
 import Clouds from './Clouds';
 import Rain from './Rain';
+import SunMoon from './SunMoon';
 
 const baseBackground = {
 	transition: 'all 1.5s ease-in-out',
@@ -34,6 +34,15 @@ const useStyles = createUseStyles((theme: WeatherTheme) => ({
 		backgroundColor: theme.color.nightBlue
 	}
 }));
+
+const fadeInTransition: {
+	[state: string]: object;
+} = {
+	entering: { opacity: 1 },
+	entered: { opacity: 1 },
+	exiting: { opacity: 0 },
+	exited: { opacity: 0 }
+};
 
 /**
  * id codes from https://websygen.github.io/owfont/#
@@ -71,8 +80,15 @@ export default function DynamicWeatherBackground(props: WeatherResponseItem) {
 	return (
 		<div className={classes.backgroundDay}>
 			<div className={classes.backgroundNight} style={{ opacity: getTintOpacity(props, now) * 0.9 }} />
-			{isCloudy && <Clouds />}
-			{isRainy && <Rain />}
+			<Transition in={isCloudy} timeout={1400}>
+				{state => <Clouds style={fadeInTransition[state]} />}
+			</Transition>
+			<Transition in={isRainy} timeout={1400}>
+				{state => <Rain style={fadeInTransition[state]} />}
+			</Transition>
+			<Transition in={!isRainy && !isCloudy} timeout={1400}>
+				{state => <SunMoon style={fadeInTransition[state]} isMoon={getTintOpacity(props, now) === 1} />}
+			</Transition>
 		</div>
 	);
 }

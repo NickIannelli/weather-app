@@ -1,18 +1,41 @@
 import React from 'react';
+import { createUseStyles } from 'react-jss';
 import { useDispatch, useSelector } from 'react-redux';
 import DynamicWeatherBackground from '../../components/DynamicWeatherBackground';
 import LocationSearchForm, { LocationImperativeHandle } from '../../components/LocationSearchForm';
 import WeatherInfo from '../../components/WeatherInfo';
+import PinnedWeatherInfo from '../../containers/PinnedWeatherInfo';
 import usePeriodicReload from '../../hooks/usePeriodicReload';
 import { actions, selectors } from '../../store/weather';
+import { WeatherTheme } from '../../theme';
+import { ReduxStore } from '../../types';
+
+const useStyles = createUseStyles((theme: WeatherTheme) => ({
+	fixedSearchForm: {
+		position: 'fixed',
+		top: 0,
+		left: 0,
+		right: 0,
+		padding: '5px',
+		zIndex: 1,
+		backdropFilter: 'blur(8px)',
+		boxShadow: '0 4px 4px -1px rgba(0, 0, 0, 0.3)'
+	},
+	content: {
+		marginTop: '80px',
+		paddingBottom: '80px'
+	}
+}));
 
 export default function WeatherPage({
 	computedMatch: {
 		params: { location }
 	}
 }: any) {
+	const classes = useStyles();
 	const [city, state] = location.split('|');
 	const details = useSelector(selectors.getActiveWeather);
+	const pinnedLocations = useSelector((state: ReduxStore) => state.user.pinnedLocations);
 	const dispatch = useDispatch();
 	const searchForm = React.useRef<LocationImperativeHandle | null>(null);
 
@@ -43,9 +66,17 @@ export default function WeatherPage({
 
 	return (
 		<>
-			<LocationSearchForm ref={searchForm} initialValues={{ city, state }} />
-			<WeatherInfo {...details} isPinned />
-			<DynamicWeatherBackground {...details} />
+			<div className={classes.fixedSearchForm}>
+				<LocationSearchForm ref={searchForm} initialValues={{ city, state }} />
+			</div>
+			<div className={classes.content}>
+				<WeatherInfo weather={details} location={{ city, state }} isActive />
+				<DynamicWeatherBackground {...details} />
+				{/* @TODO: Fix location: any */}
+				{pinnedLocations.map((location: any) => (
+					<PinnedWeatherInfo key={`${location.city}|${location.state}`} location={location} />
+				))}
+			</div>
 		</>
 	);
 }

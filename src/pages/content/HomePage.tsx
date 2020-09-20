@@ -1,9 +1,8 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import LocationSearchForm from '../../components/LocationSearchForm';
-import { WeatherTheme } from '../../theme';
 
-const useStyles = createUseStyles((theme: WeatherTheme) => ({
+const useStyles = createUseStyles({
 	backgroundDay: {
 		display: 'flex',
 		flexDirection: 'column',
@@ -12,8 +11,7 @@ const useStyles = createUseStyles((theme: WeatherTheme) => ({
 		left: '0',
 		right: '0',
 		bottom: '0',
-		justifyContent: 'center',
-		backgroundColor: theme.color.dayBlue
+		justifyContent: 'center'
 	},
 	content: {
 		textAlign: 'center',
@@ -25,7 +23,7 @@ const useStyles = createUseStyles((theme: WeatherTheme) => ({
 		width: '80px',
 		height: '80px'
 	}
-}));
+});
 
 export default function HomePage() {
 	const classes = useStyles();

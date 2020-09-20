@@ -13,6 +13,7 @@ import theme from './theme';
  * - Sun icon courtesy of https://www.flaticon.com/authors/dinosoftlabs
  * - Cloud image courtesy of https://pngriver.com/download-cloud-png-5-83292/
  * - Rain image courtesy of http://pngimg.com/download/13467
+ * - Star iamge courtesy of https://www.flaticon.com/free-icon/star_1828884
  */
 export default function App() {
 	return (

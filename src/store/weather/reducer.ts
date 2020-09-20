@@ -17,8 +17,12 @@ export default handleActions(
 	{
 		[fetchRequest.toString()]: (state, { payload }: Action<RequestAction>) => ({
 			...state,
-			previousTerm: state.activeSearch,
-			activeSearch: serializeTerm(payload)
+			...(payload.silent
+				? {}
+				: {
+						previousTerm: state.activeSearch,
+						activeSearch: serializeTerm(payload)
+				  })
 		}),
 
 		[fetchSuccess.toString()]: (state, { payload }: Action<SuccessAction>) => {

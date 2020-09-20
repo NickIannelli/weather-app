@@ -59,3 +59,8 @@ export type WeatherResponseItem = {
 	name: string;
 	cod: number;
 };
+
+export type LocationSearch = {
+	city: string;
+	state: string;
+};

@@ -6,7 +6,7 @@ import { FailureAction, RequestAction, SuccessAction } from './types';
 
 export const { fetchRequest, fetchSuccess, fetchFailure, setUnits } = createActions(
 	{
-		FETCH_REQUEST: (city, state): RequestAction => ({ city, state }),
+		FETCH_REQUEST: (city, state, silent = false): RequestAction => ({ city, state, silent }),
 		FETCH_SUCCESS: (city, state, data: WeatherResponseItem): SuccessAction => ({
 			city,
 			state,
@@ -23,11 +23,14 @@ export const { fetchRequest, fetchSuccess, fetchFailure, setUnits } = createActi
 	}
 );
 
-export const fetchWeather = (city: string, state: string) => async (dispatch: Function, getState: Function) => {
+export const fetchWeather = (city: string, state: string, silent?: boolean) => async (
+	dispatch: Function,
+	getState: Function
+) => {
 	const { weather } = getState();
 	const term = serializeTerm({ city, state });
 
-	dispatch(fetchRequest(city, state));
+	dispatch(fetchRequest(city, state, silent));
 
 	// No need to re-fetch data that's fresh enough
 	if (weather.byTerm[term]?.timeFetched > +new Date() - 5e3 * 60) return;

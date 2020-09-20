@@ -3,6 +3,7 @@ import { ErrorResponse, WeatherResponseItem } from '../../types';
 export type BaseAction = {
 	city: string;
 	state: string;
+	silent?: boolean;
 };
 
 export type RequestAction = BaseAction;

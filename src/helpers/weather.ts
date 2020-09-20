@@ -12,6 +12,8 @@ const minutes30 = 30 * 60 * 1000;
 const minutes60 = 60 * 60 * 1000;
 
 export const getTintOpacity = (props: WeatherResponseItem, now: number) => {
+	if (!props || !props.base) return 0;
+
 	const { sunrise, sunset } = getTimes(props);
 
 	// Before sunrise - still dark outside

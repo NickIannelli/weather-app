@@ -9,5 +9,6 @@ export default function usePeriodicReload(fn: () => void, timeout: number, props
 		return () => {
 			clearInterval(timer.current!);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [...propsArray, fn, timeout]);
 }
