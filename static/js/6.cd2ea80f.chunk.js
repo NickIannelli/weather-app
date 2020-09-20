@@ -1,2 +1,0 @@
-(this["webpackJsonpweather-app"]=this["webpackJsonpweather-app"]||[]).push([[6],{114:function(e,t,n){"use strict";n.r(t),n.d(t,"default",(function(){return r}));var a=n(0),i=n.n(a);function r(){return i.a.createElement("main",null,"This is a SettingsPage")}}}]);
-//# sourceMappingURL=6.cd2ea80f.chunk.js.map
