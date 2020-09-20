@@ -1,5 +1,7 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
+import sun from '../images/sun.svg';
+import moon from '../images/half-moon.svg';
 
 type Props = React.HTMLProps<HTMLDivElement> & {
 	isMoon?: boolean;
@@ -23,7 +25,7 @@ export default function Sun({ isMoon, ...props }: Props) {
 
 	return (
 		<div className={classes.sunContainer} {...props}>
-			<img src={isMoon ? '/images/half-moon.svg' : '/images/sun.svg'} alt="" className={classes.sun} />
+			<img src={isMoon ? moon : sun} alt="" className={classes.sun} />
 		</div>
 	);
 }

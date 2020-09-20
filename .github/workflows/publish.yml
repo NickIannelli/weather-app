@@ -18,6 +18,7 @@ jobs:
         run: |
           npm install
           export REACT_APP_OW_API_KEY=${{ secrets.OW_API_KEY }}
+          export PUBLIC_URL=https://nickiannelli.github.io/weather-app/
           npm run build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3

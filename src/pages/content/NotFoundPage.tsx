@@ -1,6 +1,7 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import { Link } from 'react-router-dom';
+import sun from '../../images/sun.svg';
 
 const useStyles = createUseStyles({
 	backgroundDay: {
@@ -31,7 +32,7 @@ export default function NotFoundPage() {
 	return (
 		<div className={classes.backgroundDay}>
 			<div className={classes.content}>
-				<img src="/images/sun.svg" className={classes.logoImage} alt="" />
+				<img src={sun} className={classes.logoImage} alt="" />
 				<h1>404 - Page Not Found</h1>
 				<p>
 					The page you are looking for doesn't seem to exist!

@@ -1,5 +1,6 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
+import rain from '../images/rain.png';
 
 const useStyles = createUseStyles({
 	rainContainer: {
@@ -40,7 +41,7 @@ export default function Rain(props: React.HTMLProps<HTMLDivElement>) {
 				...props.style
 			}}
 		>
-			<img src="/images/rain.png" alt="" className={classes.rain} />
+			<img src={rain} alt="" className={classes.rain} />
 		</div>
 	);
 }

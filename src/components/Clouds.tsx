@@ -1,6 +1,7 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import useWindowSize from '../hooks/useWindowSize';
+import cloud from '../images/cloud.png';
 
 const useStyles = createUseStyles({
 	cloudContainer: {
@@ -34,7 +35,7 @@ export default function Clouds(props: React.HTMLProps<HTMLDivElement>) {
 			{Array.from({ length: Math.ceil(width / 700) }, (_, i) => (
 				<img
 					key={i}
-					src="/images/cloud.png"
+					src={cloud}
 					alt=""
 					className={classes.clouds}
 					style={{ left: `${i * 700 - 200}px`, top: `${(((i + 1) % 2) + 1) * -60}px`, animationDelay: `${i * 600}ms` }}

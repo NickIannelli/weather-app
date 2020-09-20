@@ -7,6 +7,7 @@ import { defaultCities } from '../../constants';
 import { actions as userActions } from '../../store/user';
 import { actions as weatherActions } from '../../store/weather';
 import { WeatherTheme } from '../../theme';
+import sun from '../../images/sun.svg';
 
 const useStyles = createUseStyles((theme: WeatherTheme) => ({
 	backgroundDay: {
@@ -68,7 +69,7 @@ export default function HomePage() {
 	return (
 		<div className={classes.backgroundDay}>
 			<div className={classes.content}>
-				<img src="/images/sun.svg" className={classes.logoImage} alt="" />
+				<img src={sun} className={classes.logoImage} alt="" />
 				<h1>Weather Finder</h1>
 				<button type="button" onClick={loadCapitalCities} className={classes.citiesButton}>
 					Australia's Capital Cities
