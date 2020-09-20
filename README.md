@@ -1,5 +1,17 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Setup
+
+To set up the application, the OpenWeather API Key needs to be created.
+
+To do so, create a file in the root directory (as a sibling to this README) called `.env`. The contents should look like:
+
+```
+REACT_APP_OW_API_KEY=<YourKeyGoesHere>
+```
+
+The core scripts remain in tact (npm start, npm run build)
+
 ## Available Scripts
 
 In the project directory, you can run:
