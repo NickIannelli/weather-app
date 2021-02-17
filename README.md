@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## [https://nickiannelli.github.io/weather-app/](GitHub Pages Deployment)
+## [GitHub Pages Deployment](https://nickiannelli.github.io/weather-app/)
 
 ## Setup
 
